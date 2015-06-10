@@ -23,17 +23,21 @@ __Android__
 
 ##Install
 
-1. Install cordova cli wtih `npm install -g cordova`
-2. Run `./setup.sh` to setup the project.
+1. Install NodeJS. Please visit https://nodejs.org/.
+2. Install cordova cli wtih `npm install -g cordova`
+3. Run `./setup.sh` to setup the project.
 
-_Mac OS X with Xcode installed is required to run the application on the iOS platform. Please visit https://developer.apple.com/._
+**Note:** Mac OS X with Xcode installed is required to run the application on the iOS platform. Please visit https://developer.apple.com/.
 
-_The Anrodid SDK is required to be installed to run the application on the Android platform. Please see http://developer.android.com/index.html._
+**Note:** The Anrodid SDK is required to be installed to run the application on the Android platform. Please see http://developer.android.com/index.html.
 
 ##Run
-`cordova run ios` to run the project on an iOS device.   
-_or_   
-`cordova run android` to run the project on an Android device.
+
+Execute `cordova run ios` to run the project on an iOS device.
+
+*or*  
+
+Execute `cordova run android` to run the project on an Android device.
 
 ##Business Logic
 
