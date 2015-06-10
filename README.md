@@ -1,8 +1,8 @@
 ##Setup
 1. Install cordova cli wtih `npm install -g cordova`
 2. Run `./setup.sh` to setup the project.
-    _Mac OS X with Xcode installed is required to develop iOS applications._
-    _The Anrodid SDK is required to be installed to develop Android applications._
+   _Mac OS X with Xcode installed is required to run the application on the iOS platform. Please visit https://developer.apple.com/._
+   _The Anrodid SDK is required to be installed to develop Android applications. Please see http://developer.android.com/index.html._
 
 ##Run
 `cordova run ios` to run the project on an iOS device.   
