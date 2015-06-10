@@ -1,0 +1,3 @@
+[submodule "submodules"]
+	path = submodules
+	url = git@github.com:ThomasConner/Kinvey-Push-Business-Logic.git
