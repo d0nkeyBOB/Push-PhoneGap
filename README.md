@@ -1,9 +1,10 @@
-##Register
+##Setup
 __iOS__
 
 _Coming Soon_
 
 __Android__
+
 1. Visit https://console.developers.google.com.
 2. Create a new project.
 3. On the left side menu, select Overview.
@@ -21,6 +22,7 @@ __Android__
 15. Click save.
 
 ##Install
+
 1. Install cordova cli wtih `npm install -g cordova`
 2. Run `./setup.sh` to setup the project.
 
