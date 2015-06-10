@@ -1,4 +1,26 @@
-##Setup
+##Register
+__iOS__
+
+_Coming Soon_
+
+__Android__
+1. Visit https://console.developers.google.com.
+2. Create a new project.
+3. On the left side menu, select Overview.
+4. Copy the Project ID found at the top of the page.
+5. Go to your application evironment on https://console.kinvey.com.
+6. Select Engagement on the left side menu.
+7. Select the Configuration tab and paste your project ID under Android.
+8. Back on https://console.developers.google.com, on the left side menu select APIs & auth > credentials.
+9. Under Public API access, create a new key.
+10. Click Server key and then click create.
+11. Copy the generated API Key.
+12. Go back to your application evironment on https://console.kinvey.com.
+13. Select Engagement on the left side menu.
+14. Select the Configuration tab and paste the generated API Key under Android.
+15. Click save.
+
+##Install
 1. Install cordova cli wtih `npm install -g cordova`
 2. Run `./setup.sh` to setup the project.
 
