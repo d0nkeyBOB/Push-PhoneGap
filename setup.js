@@ -81,7 +81,7 @@ prompt.get({
           return;
         }
 
-        var phoneGapSetup = spawn('./setup.sh');
+        var phoneGapSetup = spawn('./setup.sh', ['-c', '-i']);
 
         phoneGapSetup.stdout.on('data', function(data) {
           console.log(chalk.white(data));

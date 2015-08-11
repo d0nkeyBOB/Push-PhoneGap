@@ -30,7 +30,6 @@ show_help () {
   message_info "    -c (--clean): Removes generated directories and content. Combine with -i."
   message_info "    -h (--help): Displays this help message."
   message_info "    -i (--init): Runs all operations necessary for initialization."
-  message_info "    -n (--icons): Copies icon and splash screen images to platform directories."
   message_info "    -p (--plugins): (Re)Installs all plugins."
   message_info "    -u (--update): Update platform codebase, runs 'phonegap prepare'."
   echo ""
@@ -138,41 +137,6 @@ if [[ $init = 1 ]] ; then
 fi
 
 # ----
-# Copy App Icons and Splash Screen Images
-
-if [[ $init = 1 ]] || [[ $icons = 1 ]] ; then
-  # This would probably be better if we parsed www/config.xml,
-  # but for now we know the files and where they need to go.
-
-  message_info "Copying Android app icons and splash screen images..."
-  cp www/res/icon/android/icon-36-ldpi.png platforms/android/res/drawable-ldpi/icon.png
-  cp www/res/icon/android/icon-48-mdpi.png platforms/android/res/drawable-mdpi/icon.png
-  cp www/res/icon/android/icon-72-hdpi.png platforms/android/res/drawable-hdpi/icon.png
-  cp www/res/icon/android/icon-96-xhdpi.png platforms/android/res/drawable-xhdpi/icon.png
-  cp www/res/icon/android/icon-96-xhdpi.png platforms/android/res/drawable/icon.png
-
-  cp www/res/screen/android/screen-ldpi-portrait.png platforms/android/res/drawable-ldpi/screen.png
-  cp www/res/screen/android/screen-mdpi-portrait.png platforms/android/res/drawable-mdpi/screen.png
-  cp www/res/screen/android/screen-hdpi-portrait.png platforms/android/res/drawable-hdpi/screen.png
-  cp www/res/screen/android/screen-xhdpi-portrait.png platforms/android/res/drawable-xhdpi/screen.png
-  cp www/res/screen/android/screen-xhdpi-portrait.png platforms/android/res/drawable/screen.png
-
-  message_info "Copying iOS app icons and splash screen images..."
-  cp www/res/icon/ios/icon-57.png platforms/ios/Project/Resources/icons/icon.png
-  cp www/res/icon/ios/icon-57-2x.png platforms/ios/Project/Resources/icons/icon@2x.png
-  cp www/res/icon/ios/icon-72.png platforms/ios/Project/Resources/icons/icon-72.png
-  cp www/res/icon/ios/icon-72-2x.png platforms/ios/Project/Resources/icons/icon-72@2x.png
-
-  cp www/res/screen/ios/screen-iphone-portrait.png platforms/ios/Project/Resources/splash/Default~iphone.png
-  cp www/res/screen/ios/screen-iphone-portrait-2x.png platforms/ios/Project/Resources/splash/Default@2x~iphone.png
-  cp www/res/screen/ios/screen-iphone-portrait-568h-2x.png platforms/ios/Project/Resources/splash/Default-568h@2x~iphone.png
-  cp www/res/screen/ios/screen-ipad-portrait.png platforms/ios/Project/Resources/splash/Default-Portrait~ipad.png
-  cp www/res/screen/ios/screen-ipad-portrait-2x.png platforms/ios/Project/Resources/splash/Default-Portrait@2x~ipad.png
-  cp www/res/screen/ios/screen-ipad-landscape.png platforms/ios/Project/Resources/splash/Default-Landscape~ipad.png
-  cp www/res/screen/ios/screen-ipad-landscape-2x.png platforms/ios/Project/Resources/splash/Default-Landscape@2x~ipad.png
-fi
-
-# ----
 # Add Plugins
 
 if [[ $init = 1 ]] || [[ $plugins = 1 ]] ; then
@@ -189,7 +153,7 @@ if [[ $init = 1 ]] || [[ $plugins = 1 ]] ; then
   phonegap plugin add org.apache.cordova.network-information
 
   message_info "Adding Push Plugin..."
-  phonegap plugin add "https://github.com/phonegap-build/PushPlugin.git"
+  phonegap plugin add "https://github.com/phonegap-build/PushPlugin.git#2.4.0"
   cp plugins/com.phonegap.plugins.PushPlugin/Example/www/PushNotification.js www/js/PushNotification.js
 fi
 
