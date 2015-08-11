@@ -47,34 +47,36 @@ var app = {
         alert('Received Event: ' + id);
 
         var initPromise = Kinvey.init({
-            appKey    : 'APPKEY',
-            appSecret : 'APPSECRET'
+            appKey    : 'kid_byGoHmnX2',
+            appSecret : '9b8431f34279434bbedaceb2fe6b8fb5'
         });
         initPromise.then(function(activeUser) {
-            alert("init worked");
+            alert('init worked');
+
             if (activeUser === null){
                 return Kinvey.User.signup({
-                    username:"phonegap",
-                    password:"phonegap"
+                    username: 'phonegap',
+                    password: 'phonegap'
+                }).catch(function() {
+                    return Kinvey.User.login('phonegap', 'phonegap');
                 });
             }
 
-        }, function(error) {
-            alert("init fail: " + error);
+            return activeUser;
         }).then(function(activeUser){
-            alert("logged in!");
+            alert('logged in!');
 
-            if('android' === device.platform.toLowerCase()) {
+            if (device.platform.toLowerCase() === 'android') {
                 window.plugins.pushNotification.register(function() { }, function() { }, {
                     ecb      : 'onNotificationGCM',
-                    senderID : 'GOOGLE_PROJECT_ID'// Google Project ID.
+                    senderID : '949921928169'// Google Project ID.
                 });
             }
             else {// iOS.
                 window.plugins.pushNotification.register(app.registrationHandler, function(err) {
                     // Failed to register device.
-                    console.log(err);
-                    alert("couldn't register with plugin ");
+                    alert(JSON.stringify(err));
+                    alert('couldn\'t register with plugin');
                 }, {
                     alert : 'true',
                     badge : 'true',
@@ -82,40 +84,40 @@ var app = {
                     ecb   : 'onNotificationAPN'
                 });
             }
-        }, function(error){
-            alert("login fail: " + error);
+        }).catch(function(err){
+            alert('fail: ' + JSON.stringify(err));
         });
     },
 
     registrationHandler : function(deviceId) {
         alert("reg handler");
-        if(null === Kinvey.getActiveUser()) {
+
+        if (Kinvey.getActiveUser() === null) {
             // Error: there must be a logged-in user.
-            alert("no logged in user? ");
+            alert('no logged in user?');
         }
         else {
             Kinvey.Push.register(deviceId).then(function() {
                 // Successfully registered device with Kinvey.
-                alert("done with reg!");
-            }, function(error) {
+                alert('done with reg!');
+            }, function(err) {
                 // Error registering device with Kinvey.
-                alert("couldn't register with kinvey! ");
-            })
+                alert('couldn\'t register with kinvey!: ' + JSON.stringify(err));
+            });
         }
     }
 };
 
 // Method to handle device registration for Android.
 function onNotificationGCM(e) {
-    if('registered' === e.event) {
+    if (e.event === 'registered') {
         app.registrationHandler(e.regid);// Register with Kinvey.
     }
-    else if('message' === e.event) {
+    else if (e.event === 'message') {
         navigator.notification.alert(e.payload.message);
     }
-    else if('error' === e.event) {
-        alert("couldn't register with plugin "); // Failed to register device.
-        // Failed to register device.
+    else if (e.event === 'error') {
+        alert('couldn\'t register with plugin'); // Failed to register device
     }
     else {
         // Unknown event.

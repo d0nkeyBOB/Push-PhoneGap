@@ -37,8 +37,8 @@ show_help () {
   message_info ""
   message_info "Examples:"
   message_info ""
-  message_info "    ./project.sh   # This is the same as using the -i option."
-  message_info "    ./project.sh -c -i"
+  message_info "    ./setup.sh   # This is the same as using the -i option."
+  message_info "    ./setup.sh -c -i"
   echo ""
 }
 
@@ -195,17 +195,20 @@ fi
 if [[ $init = 1 ]] || [[ $plugins = 1 ]] ; then
 
   message_info "Adding Device Plugin..."
-  cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-device.git
+  cordova plugin add cordova-plugin-device
+
+  message_info "Adding Dialogs Plugin..."
+  cordova plugin add cordova-plugin-dialogs
+
+  message_info "Adding Vibration Plugin..."
+  cordova plugin add cordova-plugin-vibration
 
   message_info "Adding Network Information Plugin..."
-  cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-network-information.git
+  cordova plugin add org.apache.cordova.network-information
 
-  message_info "Adding Geolocation Plugin..."
-  cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-geolocation.git
-
-  message_info "Adding Splashscreen Plugin..."
-  cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-splashscreen.git
-
+  message_info "Adding Push Plugin..."
+  cordova plugin add "https://github.com/phonegap-build/PushPlugin.git"
+  cp plugins/com.phonegap.plugins.PushPlugin/Example/www/PushNotification.js www/js/PushNotification.js
 fi
 
 # ----
