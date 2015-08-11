@@ -30,15 +30,9 @@ show_help () {
   message_info "    -c (--clean): Removes generated directories and content. Combine with -i."
   message_info "    -h (--help): Displays this help message."
   message_info "    -i (--init): Runs all operations necessary for initialization."
-  message_info "    -m (--merge): Merges content of 'platform-merges' with 'platform'."
   message_info "    -n (--icons): Copies icon and splash screen images to platform directories."
   message_info "    -p (--plugins): (Re)Installs all plugins."
   message_info "    -u (--update): Update platform codebase, runs 'phonegap prepare'."
-  message_info ""
-  message_info "Examples:"
-  message_info ""
-  message_info "    ./setup.sh   # This is the same as using the -i option."
-  message_info "    ./setup.sh -c -i"
   echo ""
 }
 
@@ -141,17 +135,6 @@ if [[ $init = 1 ]] ; then
 
   message_info "Adding iOS platform..."
   phonegap platform add ios
-fi
-
-# ----
-# Merge platform overrides.
-
-if [[ $init = 1 ]] || [[ $merge = 1 ]] ; then
-  message_info "Merging Android platform customizations..."
-  cp -R platform-merges/android/* platforms/android/
-
-  message_info "Merging iOS platform customizations..."
-  cp -R platform-merges/ios/* platforms/ios/
 fi
 
 # ----

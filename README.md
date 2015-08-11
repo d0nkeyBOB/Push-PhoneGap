@@ -26,7 +26,6 @@ __Android__
 1. Install NodeJS. Please visit https://nodejs.org/.
 2. Install cordova cli wtih `npm install -g phonegap`
 3. Run `npm install` to install dependencies.
-4. Run `node setup.js` to setup the project.
 
 **Note:** Mac OS X with Xcode installed is required to run the application on the iOS platform. Please visit https://developer.apple.com/.
 
