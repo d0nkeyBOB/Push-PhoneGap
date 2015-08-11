@@ -24,8 +24,8 @@ __Android__
 ##Install
 
 1. Install NodeJS. Please visit https://nodejs.org/.
-2. Install cordova cli wtih `npm install -g cordova`
-3. Run `./setup.sh` to setup the project.
+2. Install cordova cli wtih `npm install -g phonegap`
+3. Run `npm install` to install dependencies.
 
 **Note:** Mac OS X with Xcode installed is required to run the application on the iOS platform. Please visit https://developer.apple.com/.
 
@@ -33,11 +33,11 @@ __Android__
 
 ##Run
 
-Execute `cordova run ios` to run the project on an iOS device.
+Execute `phonegap run ios` to run the project on an iOS device.
 
 *or*  
 
-Execute `cordova run android` to run the project on an Android device.
+Execute `phonegap run android` to run the project on an Android device.
 
 ##Business Logic
 

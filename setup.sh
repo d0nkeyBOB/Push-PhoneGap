@@ -30,15 +30,8 @@ show_help () {
   message_info "    -c (--clean): Removes generated directories and content. Combine with -i."
   message_info "    -h (--help): Displays this help message."
   message_info "    -i (--init): Runs all operations necessary for initialization."
-  message_info "    -m (--merge): Merges content of 'platform-merges' with 'platform'."
-  message_info "    -n (--icons): Copies icon and splash screen images to platform directories."
   message_info "    -p (--plugins): (Re)Installs all plugins."
-  message_info "    -u (--update): Update platform codebase, runs 'cordova prepare'."
-  message_info ""
-  message_info "Examples:"
-  message_info ""
-  message_info "    ./project.sh   # This is the same as using the -i option."
-  message_info "    ./project.sh -c -i"
+  message_info "    -u (--update): Update platform codebase, runs 'phonegap prepare'."
   echo ""
 }
 
@@ -134,86 +127,42 @@ fi
 
 if [[ $init = 1 ]] ; then
   # TODO Check if platforms have already been added
-  # 'cordova platforms'
+  # 'phonegap platforms'
 
   message_info "Adding Android platform..."
-  cordova platform add android
+  phonegap platform add android
 
   message_info "Adding iOS platform..."
-  cordova platform add ios
-fi
-
-# ----
-# Merge platform overrides.
-
-if [[ $init = 1 ]] || [[ $merge = 1 ]] ; then
-  message_info "Merging Android platform customizations..."
-  cp -R platform-merges/android/* platforms/android/
-
-  message_info "Merging iOS platform customizations..."
-  cp -R platform-merges/ios/* platforms/ios/
-fi
-
-# ----
-# Copy App Icons and Splash Screen Images
-
-if [[ $init = 1 ]] || [[ $icons = 1 ]] ; then
-  # This would probably be better if we parsed www/config.xml,
-  # but for now we know the files and where they need to go.
-
-  message_info "Copying Android app icons and splash screen images..."
-  cp www/res/icon/android/icon-36-ldpi.png platforms/android/res/drawable-ldpi/icon.png
-  cp www/res/icon/android/icon-48-mdpi.png platforms/android/res/drawable-mdpi/icon.png
-  cp www/res/icon/android/icon-72-hdpi.png platforms/android/res/drawable-hdpi/icon.png
-  cp www/res/icon/android/icon-96-xhdpi.png platforms/android/res/drawable-xhdpi/icon.png
-  cp www/res/icon/android/icon-96-xhdpi.png platforms/android/res/drawable/icon.png
-
-  cp www/res/screen/android/screen-ldpi-portrait.png platforms/android/res/drawable-ldpi/screen.png
-  cp www/res/screen/android/screen-mdpi-portrait.png platforms/android/res/drawable-mdpi/screen.png
-  cp www/res/screen/android/screen-hdpi-portrait.png platforms/android/res/drawable-hdpi/screen.png
-  cp www/res/screen/android/screen-xhdpi-portrait.png platforms/android/res/drawable-xhdpi/screen.png
-  cp www/res/screen/android/screen-xhdpi-portrait.png platforms/android/res/drawable/screen.png
-
-  message_info "Copying iOS app icons and splash screen images..."
-  cp www/res/icon/ios/icon-57.png platforms/ios/Project/Resources/icons/icon.png
-  cp www/res/icon/ios/icon-57-2x.png platforms/ios/Project/Resources/icons/icon@2x.png
-  cp www/res/icon/ios/icon-72.png platforms/ios/Project/Resources/icons/icon-72.png
-  cp www/res/icon/ios/icon-72-2x.png platforms/ios/Project/Resources/icons/icon-72@2x.png
-
-  cp www/res/screen/ios/screen-iphone-portrait.png platforms/ios/Project/Resources/splash/Default~iphone.png
-  cp www/res/screen/ios/screen-iphone-portrait-2x.png platforms/ios/Project/Resources/splash/Default@2x~iphone.png
-  cp www/res/screen/ios/screen-iphone-portrait-568h-2x.png platforms/ios/Project/Resources/splash/Default-568h@2x~iphone.png
-  cp www/res/screen/ios/screen-ipad-portrait.png platforms/ios/Project/Resources/splash/Default-Portrait~ipad.png
-  cp www/res/screen/ios/screen-ipad-portrait-2x.png platforms/ios/Project/Resources/splash/Default-Portrait@2x~ipad.png
-  cp www/res/screen/ios/screen-ipad-landscape.png platforms/ios/Project/Resources/splash/Default-Landscape~ipad.png
-  cp www/res/screen/ios/screen-ipad-landscape-2x.png platforms/ios/Project/Resources/splash/Default-Landscape@2x~ipad.png
+  phonegap platform add ios
 fi
 
 # ----
 # Add Plugins
 
 if [[ $init = 1 ]] || [[ $plugins = 1 ]] ; then
-
   message_info "Adding Device Plugin..."
-  cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-device.git
+  phonegap plugin add cordova-plugin-device
+
+  message_info "Adding Dialogs Plugin..."
+  phonegap plugin add cordova-plugin-dialogs
+
+  message_info "Adding Vibration Plugin..."
+  phonegap plugin add cordova-plugin-vibration
 
   message_info "Adding Network Information Plugin..."
-  cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-network-information.git
+  phonegap plugin add org.apache.cordova.network-information
 
-  message_info "Adding Geolocation Plugin..."
-  cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-geolocation.git
-
-  message_info "Adding Splashscreen Plugin..."
-  cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-splashscreen.git
-
+  message_info "Adding Push Plugin..."
+  phonegap plugin add "https://github.com/phonegap-build/PushPlugin.git#2.4.0"
+  cp plugins/com.phonegap.plugins.PushPlugin/Example/www/PushNotification.js www/js/PushNotification.js
 fi
 
 # ----
 # Prepare Platforms
 if [[ $init = 1 ]] || [[ $update = 1 ]] ; then
   message_info "Syncing 'www' with Android platform..."
-  cordova prepare android
+  phonegap prepare android
 
   message_info "Syncing 'www' with iOS platform..."
-  cordova prepare ios
+  phonegap prepare ios
 fi
