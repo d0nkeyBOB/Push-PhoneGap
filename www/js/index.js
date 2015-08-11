@@ -19,14 +19,14 @@
 var app = {
     // Application Constructor
     initialize: function() {
-        this.bindEvents();
+        app.bindEvents();
     },
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
+        document.addEventListener('deviceready', app.onDeviceReady, false);
     },
     // deviceready Event Handler
     //
@@ -35,48 +35,48 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
     },
+
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+        // var parentElement = document.getElementById(id);
+        // var listeningElement = parentElement.querySelector('.listening');
+        // var receivedElement = parentElement.querySelector('.received');
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+        // listeningElement.setAttribute('style', 'display:none;');
+        // receivedElement.setAttribute('style', 'display:block;');
 
-        alert('Received Event: ' + id);
+        app.log('Received Event: ' + id);
 
         var initPromise = Kinvey.init({
-            appKey    : 'kid_byGoHmnX2',
-            appSecret : '9b8431f34279434bbedaceb2fe6b8fb5'
+            appKey: window.APP_KEY,
+            appSecret: window.APP_SECRET,
+            apiHostName: window.API_HOSTNAME
         });
         initPromise.then(function(activeUser) {
-            alert('init worked');
-
+            app.log("init worked");
             if (activeUser === null){
                 return Kinvey.User.signup({
-                    username: 'phonegap',
-                    password: 'phonegap'
-                }).catch(function() {
-                    return Kinvey.User.login('phonegap', 'phonegap');
+                    username:"phonegap",
+                    password:"phonegap"
                 });
             }
 
-            return activeUser;
+        }, function(error) {
+            app.log("init fail: " + error);
         }).then(function(activeUser){
-            alert('logged in!');
+            app.log("logged in!");
 
             if (device.platform.toLowerCase() === 'android') {
+                app.log(window.GOOGLE_PROJECT_ID);
                 window.plugins.pushNotification.register(function() { }, function() { }, {
                     ecb      : 'onNotificationGCM',
-                    senderID : '949921928169'// Google Project ID.
+                    senderID : window.GOOGLE_PROJECT_ID
                 });
             }
             else {// iOS.
                 window.plugins.pushNotification.register(app.registrationHandler, function(err) {
                     // Failed to register device.
-                    alert(JSON.stringify(err));
-                    alert('couldn\'t register with plugin');
+                    app.log("couldn't register with plugin ");
                 }, {
                     alert : 'true',
                     badge : 'true',
@@ -84,48 +84,56 @@ var app = {
                     ecb   : 'onNotificationAPN'
                 });
             }
-        }).catch(function(err){
-            alert('fail: ' + JSON.stringify(err));
+        }, function(error){
+            app.log("login fail: " + error);
         });
     },
 
-    registrationHandler : function(deviceId) {
-        alert("reg handler");
-
-        if (Kinvey.getActiveUser() === null) {
+    registrationHandler: function(deviceId) {
+        app.log("reg handler");
+        if (!Kinvey.getActiveUser()) {
             // Error: there must be a logged-in user.
-            alert('no logged in user?');
+            app.log("no logged in user? ");
         }
         else {
             Kinvey.Push.register(deviceId).then(function() {
                 // Successfully registered device with Kinvey.
-                alert('done with reg!');
-            }, function(err) {
+                app.log("done with reg!");
+            }, function(error) {
                 // Error registering device with Kinvey.
-                alert('couldn\'t register with kinvey!: ' + JSON.stringify(err));
-            });
+                app.log("couldn't register with kinvey! ");
+            })
         }
+    },
+
+    log: function(text) {
+        var node = document.createElement('p');
+        var textnode = document.createTextNode(text);
+        node.appendChild(textnode);
+        document.getElementById('output').appendChild(node);
     }
 };
 
 // Method to handle device registration for Android.
-function onNotificationGCM(e) {
-    if (e.event === 'registered') {
+var onNotificationGCM = function(e) {
+    if('registered' === e.event) {
         app.registrationHandler(e.regid);// Register with Kinvey.
     }
-    else if (e.event === 'message') {
-        navigator.notification.alert(e.payload.message);
+    else if('message' === e.event) {
+        navigator.notification.app.log(e.payload.message);
     }
-    else if (e.event === 'error') {
-        alert('couldn\'t register with plugin'); // Failed to register device
+    else if('error' === e.event) {
+        app.log("couldn't register with plugin "); // Failed to register device.
+        // Failed to register device.
     }
     else {
+        app.log("couldn't register");
         // Unknown event.
     }
 }
 
 // Method to handle notifications on iOS.
-function onNotificationAPN(e) {
+var onNotificationAPN = function(e) {
     if(e.alert) {
         navigator.notification.alert(e.alert);
     }

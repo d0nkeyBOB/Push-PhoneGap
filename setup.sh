@@ -33,7 +33,7 @@ show_help () {
   message_info "    -m (--merge): Merges content of 'platform-merges' with 'platform'."
   message_info "    -n (--icons): Copies icon and splash screen images to platform directories."
   message_info "    -p (--plugins): (Re)Installs all plugins."
-  message_info "    -u (--update): Update platform codebase, runs 'cordova prepare'."
+  message_info "    -u (--update): Update platform codebase, runs 'phonegap prepare'."
   message_info ""
   message_info "Examples:"
   message_info ""
@@ -134,13 +134,13 @@ fi
 
 if [[ $init = 1 ]] ; then
   # TODO Check if platforms have already been added
-  # 'cordova platforms'
+  # 'phonegap platforms'
 
   message_info "Adding Android platform..."
-  cordova platform add android
+  phonegap platform add android
 
   message_info "Adding iOS platform..."
-  cordova platform add ios
+  phonegap platform add ios
 fi
 
 # ----
@@ -193,21 +193,20 @@ fi
 # Add Plugins
 
 if [[ $init = 1 ]] || [[ $plugins = 1 ]] ; then
-
   message_info "Adding Device Plugin..."
-  cordova plugin add cordova-plugin-device
+  phonegap plugin add cordova-plugin-device
 
   message_info "Adding Dialogs Plugin..."
-  cordova plugin add cordova-plugin-dialogs
+  phonegap plugin add cordova-plugin-dialogs
 
   message_info "Adding Vibration Plugin..."
-  cordova plugin add cordova-plugin-vibration
+  phonegap plugin add cordova-plugin-vibration
 
   message_info "Adding Network Information Plugin..."
-  cordova plugin add org.apache.cordova.network-information
+  phonegap plugin add org.apache.cordova.network-information
 
   message_info "Adding Push Plugin..."
-  cordova plugin add "https://github.com/phonegap-build/PushPlugin.git"
+  phonegap plugin add "https://github.com/phonegap-build/PushPlugin.git"
   cp plugins/com.phonegap.plugins.PushPlugin/Example/www/PushNotification.js www/js/PushNotification.js
 fi
 
@@ -215,8 +214,8 @@ fi
 # Prepare Platforms
 if [[ $init = 1 ]] || [[ $update = 1 ]] ; then
   message_info "Syncing 'www' with Android platform..."
-  cordova prepare android
+  phonegap prepare android
 
   message_info "Syncing 'www' with iOS platform..."
-  cordova prepare ios
+  phonegap prepare ios
 fi
