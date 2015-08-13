@@ -8,6 +8,7 @@ __iOS__
 5. Click save.
 
 __Troubleshooting__
+
 __Why won't the application install onto my iOS device?__  
 
 1. Make sure you have installed `ios-deply` by executing `npm install -g ios-deply`. Follow the installation instructions at [ios-deploy installtion](https://github.com/phonegap/ios-deploy#installation). Try `phonegap run ios --device` again.
