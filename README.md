@@ -1,7 +1,20 @@
 ##Setup
 __iOS__
 
-_Coming Soon_
+1. Visit http://docs.urbanairship.com/reference/push-providers/apns.html#ios-apns-setup and follow the guide to create a certificate.
+2. After you export the .p12 file, go to your application environment on https://console.kinvey.com.
+3. Select Engagement on the left side menu.
+4. Select the configuration tab and drag your .p12 certificate file where it says `DRAG FILES HERE`.
+5. Click save.
+
+__Troubleshooting__
+__Why won't the application install onto my iOS device?__
+1. Make sure you have installed `ios-deply` by executing `npm install -g ios-deply`. Follow the installation instructions at [ios-deploy installtion](https://github.com/phonegap/ios-deploy#installation). Try `phonegap run ios --device` again.
+2. Refresh your account information in Xcode. Open Xcode and select Xcode > Preferences from the menu bar. Click on the Accounts tab. Select the account that you used to create your .p12 certificate and click view details in the bottom right hand corner. Click the circular arrow button in the left hand corner to refresh your provisioning profiles. Try `phonegap run ios --device` again.
+3. Add your iOS device to your Apple Developer account. Visit https://developer.apple.com/account/ios/device/deviceList.action. Click the plus button in the top right hand corner. Give your device a name and enter its UUID. You can find the device UUID using iTunes (http://www.macworld.co.uk/how-to/iphone/how-find-out-your-iphone-or-ipad-udid-3530239/). Click continue and done. Try `phonegap run ios --device` again.
+
+__I am not receiving push notifications?__
+1. Make sure you uploaded the .p12 certificate you created with your Apple Developer account into the Kinvey Management Console for your application. See the instructions above on how to setup push notifications iOS.
 
 __Android__
 
@@ -11,7 +24,7 @@ __Android__
 4. Copy the Project ID found at the top of the page.
 5. Go to your application evironment on https://console.kinvey.com.
 6. Select Engagement on the left side menu.
-7. Select the Configuration tab and paste your project ID under Android.
+7. Select the configuration tab and paste your project ID under Android.
 8. Back on https://console.developers.google.com, on the left side menu select APIs & auth > credentials.
 9. Under Public API access, create a new key.
 10. Click Server key and then click create.
@@ -24,8 +37,8 @@ __Android__
 ##Install
 
 1. Install NodeJS. Please visit https://nodejs.org/.
-2. Install cordova cli wtih `npm install -g phonegap`
-3. Run `npm install` to install dependencies.
+2. Install PhoneGap CLI wtih `npm install -g phonegap`. (Optionally install ios-deply with `npm install -g ios-deploy` if you will run the application on an iOS device.)
+3. Run `npm install` to install dependencies and setup the project.
 
 **Note:** Mac OS X with Xcode installed is required to run the application on the iOS platform. Please visit https://developer.apple.com/.
 
@@ -33,11 +46,11 @@ __Android__
 
 ##Run
 
-Execute `phonegap run ios` to run the project on an iOS device.
+Execute `phonegap run ios --device` to run the project on an iOS device. You will have to install [ios-deploy](https://github.com/phonegap/ios-deploy#installation) to deploy it to your device.
 
 *or*  
 
-Execute `phonegap run android` to run the project on an Android device.
+Execute `phonegap run android --device` to run the project on an Android device.
 
 ##Business Logic
 
