@@ -92,7 +92,7 @@ prompt.get({
         });
 
         phoneGapSetup.on('close', function(code) {
-          console.log(chalk.white('Done. Start the application by running `phonegap run ios` or `phonegap run android`.'));
+          console.log(chalk.white('Done. Start the application by running `phonegap run ios --device` or `phonegap run android --device`.'));
         });
       });
     }
