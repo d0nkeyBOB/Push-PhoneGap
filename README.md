@@ -8,12 +8,16 @@ __iOS__
 5. Click save.
 
 __Troubleshooting__
-__Why won't the application install onto my iOS device?__
+__Why won't the application install onto my iOS device?__  
+
 1. Make sure you have installed `ios-deply` by executing `npm install -g ios-deply`. Follow the installation instructions at [ios-deploy installtion](https://github.com/phonegap/ios-deploy#installation). Try `phonegap run ios --device` again.
+
 2. Refresh your account information in Xcode. Open Xcode and select Xcode > Preferences from the menu bar. Click on the Accounts tab. Select the account that you used to create your .p12 certificate and click view details in the bottom right hand corner. Click the circular arrow button in the left hand corner to refresh your provisioning profiles. Try `phonegap run ios --device` again.
-3. Add your iOS device to your Apple Developer account. Visit https://developer.apple.com/account/ios/device/deviceList.action. Click the plus button in the top right hand corner. Give your device a name and enter its UUID. You can find the device UUID using iTunes (http://www.macworld.co.uk/how-to/iphone/how-find-out-your-iphone-or-ipad-udid-3530239/). Click continue and done. Try `phonegap run ios --device` again.
+
+3. Add your iOS device to your Apple Developer account. Visit https://developer.apple.com/account/ios/device/deviceList.action. Click the plus button in the top right hand corner. Give your device a name and enter its UUID. You can find the device UUID using iTunes (http://www.macworld.co.uk/how-to/iphone/how-find-out-your-iphone-or-ipad-udid-3530239/). Click continue and done. Try `phonegap run ios --device` again.   
 
 __I am not receiving push notifications?__
+
 1. Make sure you uploaded the .p12 certificate you created with your Apple Developer account into the Kinvey Management Console for your application. See the instructions above on how to setup push notifications iOS.
 
 __Android__
