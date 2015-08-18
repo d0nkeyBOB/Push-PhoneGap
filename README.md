@@ -45,7 +45,7 @@ Execute `phonegap run android --device` to run the project on an Android device.
 
 ##Test 
 
-From the 'Engagement' section of your application environment at console.kinvey.com, send a test message to your device.
+From the 'Engagement' section of your application environment at https://console.kinvey.com, send a test message to your device.
 
 ##Business Logic
 
