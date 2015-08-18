@@ -12,10 +12,10 @@ __Android__
 1. Visit https://console.developers.google.com.
 2. Create a new project.
 3. On the left side menu, select Overview.
-4. Copy the Project ID found at the top of the page.
-5. Go to your application evironment on https://console.kinvey.com.
+4. Copy the Project Number found at the top of the page.
+5. Go to your application environment on https://console.kinvey.com.
 6. Select Engagement on the left side menu.
-7. Select the configuration tab and paste your project ID under Android.
+7. Select the configuration tab and paste your project number as the sender ID under Android.
 8. Back on https://console.developers.google.com, on the left side menu select APIs & auth > credentials.
 9. Under Public API access, create a new key.
 10. Click Server key and then click create.
@@ -33,7 +33,7 @@ __Android__
 
 **Note:** Mac OS X with Xcode installed is required to run the application on the iOS platform. Please visit https://developer.apple.com/.
 
-**Note:** The Anrodid SDK is required to be installed to run the application on the Android platform. Please see http://developer.android.com/index.html.
+**Note:** The Android SDK is required to be installed to run the application on the Android platform. Please see http://developer.android.com/index.html.
 
 ##Run
 
@@ -43,11 +43,15 @@ Execute `phonegap run ios --device` to run the project on an iOS device. You wil
 
 Execute `phonegap run android --device` to run the project on an Android device.
 
+##Test 
+
+From the 'Engagement' section of your application environment at console.kinvey.com, send a test message to your device.
+
 ##Business Logic
 
-The __businesslogic__ folder contains 4 javascript files, one for each of the four types of business logic push we support.  Create 4 custom endpoints, and copy and paste the JS into them.
+You can send targetted or conditional push notifications by writing business logic. The __businesslogic__ folder contains 4 javascript files, one for each of the four types of business logic push we support.  To use a script, create a custom endpoint and copy and paste the JS into it.
 
-When executing both the `Targetted*` scripts, change the username in the query to match the specific platform you are testing.  You can Execute these custom endpoints through the Console itself, so there is no need to write code to hit them.  
+When executing the `Targetted*` scripts, change the username in the query to match the specific platform you are testing.  You can Execute these custom endpoints through the Console itself, so there is no need to write code to hit them.
 
 ##Troubleshooting
 
@@ -59,7 +63,7 @@ __Why won't the application install onto my iOS device?__
 
 3. Add your iOS device to your Apple Developer account. Visit https://developer.apple.com/account/ios/device/deviceList.action. Click the plus button in the top right hand corner. Give your device a name and enter its UUID. You can find the device UUID using iTunes (http://www.macworld.co.uk/how-to/iphone/how-find-out-your-iphone-or-ipad-udid-3530239/). Click continue and done. Try `phonegap run ios --device` again.   
 
-__I am not receiving push notifications?__
+__I am not receiving push notifications on my device__
 
 1. Make sure you uploaded the .p12 certificate you created with your Apple Developer account into the Kinvey Management Console for your application. See the instructions above on how to setup push notifications for iOS.
 
